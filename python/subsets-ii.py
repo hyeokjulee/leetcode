@@ -1,17 +1,10 @@
-import copy
+from itertools import combinations 
 
 class Solution:
     def subsetsWithDup(self, nums):
         result = []
-        nums.sort()
 
-        def func(li, idx):
-            if idx == len(nums):
-                result.append(li)
-            else:
-                func(copy.deepcopy(li), idx + 1)
-                func(copy.deepcopy(li) + [nums[idx]], idx + 1)
+        for i in range(len(nums) + 1):
+            result = result + list(combinations(sorted(nums), i))
 
-        func([], 0)
-        result = list(set([tuple(item) for item in result]))
-        return result
+        return list(set([tuple(item) for item in result]))
